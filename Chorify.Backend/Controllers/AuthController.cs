@@ -22,13 +22,11 @@ namespace Chorify.Backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterDto dto)
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 await _authService.Register(Request, dto);
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -36,13 +34,11 @@ namespace Chorify.Backend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 await _authService.Login(Request, Response, dto);
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -50,13 +46,11 @@ namespace Chorify.Backend.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 await _authService.Logout(Request, Response);
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -64,13 +58,11 @@ namespace Chorify.Backend.Controllers
         [HttpGet("user")]
         public async Task<IActionResult> GetUser()
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 var user = await _authService.GetUser(Request);
                 return user;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }

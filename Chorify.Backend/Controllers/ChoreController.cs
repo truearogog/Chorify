@@ -27,15 +27,13 @@ namespace Chorify.Backend.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllChores()
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 var user = await _authService.GetUser(Request);
                 var chores = await _choreService.GetAll(user.Id);
 
                 return chores;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -43,8 +41,6 @@ namespace Chorify.Backend.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateChore([FromBody] ChoreCreateDto dto)
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 var user = await _authService.GetUser(Request);
@@ -52,7 +48,7 @@ namespace Chorify.Backend.Controllers
 
                 await _choreService.Create(chore);
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -60,8 +56,6 @@ namespace Chorify.Backend.Controllers
         [HttpPost("update")]
         public async Task<IActionResult> UpdateChore([FromBody] ChoreUpdateDto dto)
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 var user = await _authService.GetUser(Request);
@@ -76,7 +70,7 @@ namespace Chorify.Backend.Controllers
 
                 await _choreService.Update(new Chore(choreId, dto.Name, dto.Description, dto.Color));
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }
@@ -84,8 +78,6 @@ namespace Chorify.Backend.Controllers
         [HttpPost("delete")]
         public async Task<IActionResult> DeleteChore([FromBody] ChoreDeleteDto dto)
         {
-            var cts = new CancellationTokenSource();
-
             var response = await ApiResponseDto.BuildAsync(async () =>
             {
                 var user = await _authService.GetUser(Request);
@@ -100,7 +92,7 @@ namespace Chorify.Backend.Controllers
 
                 await _choreService.Delete(choreId);
                 return null;
-            }, cts.Token);
+            });
 
             return Ok(response);
         }

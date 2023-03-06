@@ -25,6 +25,11 @@ namespace Chorify.Domain.Dtos
             }
         }
 
+        public static ApiResponseDto Build(Func<object?> func, string? error = null)
+        {
+            return new ApiResponseDto(func, error);
+        }
+
         private ApiResponseDto(Func<Task<object?>> func, CancellationToken cancellationToken, string? error = null)
         {
             try
@@ -42,14 +47,9 @@ namespace Chorify.Domain.Dtos
             }
         }
 
-        public static ApiResponseDto Build(Func<object?> func, string? error = null)
+        public static async Task<ApiResponseDto> BuildAsync(Func<Task<object?>> func, CancellationToken? cancellationToken = null, string? error = null)
         {
-            return new ApiResponseDto(func, error);
-        }
-
-        public static async Task<ApiResponseDto> BuildAsync(Func<Task<object?>> func, CancellationToken cancellationToken, string? error = null)
-        {
-            return await Task.Run(() => new ApiResponseDto(func, cancellationToken, error));
+            return await Task.Run(() => new ApiResponseDto(func, cancellationToken ?? CancellationToken.None, error));
         }
     }
 }
