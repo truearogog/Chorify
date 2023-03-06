@@ -40,6 +40,13 @@ namespace Chorify.Backend
 
             app.MapControllers();
 
+            app.UseCors(options => options
+                .WithOrigins(new[] { "http://localhost:3000" })
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+            );
+
             app.Run();
         }
     }
