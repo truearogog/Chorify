@@ -31,6 +31,11 @@ namespace Chorify.Backend
                 app.UseSwaggerUI();
             }
 
+            using (var context = app.Services.GetRequiredService<ChorifyDbContextFactory>().Create())
+            {
+                context.Database.EnsureCreated();
+            }
+
             app.UseAuthorization();
 
             app.MapControllers();
