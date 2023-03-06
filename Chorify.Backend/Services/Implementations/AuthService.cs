@@ -21,9 +21,9 @@ namespace Chorify.Backend.Services.Implementations
             _userService = userService;
         }
 
-        public void Register(HttpRequest request, RegisterDto dto)
+        public async Task Register(HttpRequest request, UserRegisterDto dto)
         {
-            var user = Task.Run(async () => await _userService.GetByEmail(dto.Email)).Result;
+            var user = await _userService.GetByEmail(dto.Email);
 
             if (user != null)
                 throw new Exception();
@@ -33,15 +33,15 @@ namespace Chorify.Backend.Services.Implementations
                 dto.Email,
                 BCrypt.Net.BCrypt.HashPassword(dto.Password));
 
-            Task.Run(async () => await _userService.Create(user));
+            await _userService.Create(user);
 
             _logger.LogInformation($"Created user {user.Id} {user.Email}");
         }
 
-        public void Login(HttpRequest request, HttpResponse response, LoginDto dto)
+        public async Task Login(HttpRequest request, HttpResponse response, UserLoginDto dto)
         {
-            var user = Task.Run(async () => await _userService.GetByEmail(dto.Email)).Result;
-
+            var user = await _userService.GetByEmail(dto.Email);
+            
             if (user == null)
                 throw new Exception();
 
@@ -55,19 +55,22 @@ namespace Chorify.Backend.Services.Implementations
             _logger.LogInformation($"User '{user.Id}' '{user.Email}' logged in");
         }
 
-        public void Logout(HttpRequest request, HttpResponse response)
+        public async Task Logout(HttpRequest request, HttpResponse response)
         {
-            response.Cookies.Delete("jwt");
+            await Task.Run(() => {
+                response.Cookies.Delete("jwt");
+            });
         }
 
-        public User? GetUser(HttpRequest request)
+        public async Task<User?> GetUser(HttpRequest request)
         {
             var jwt = request.Cookies["jwt"];
             var token = _jwtService.Verify(jwt);
-            var userId = Guid.Parse(token.Issuer);
-            var user = Task.Run(async () => await _userService.GetById(userId)).Result;
 
-            return user;
+            var userId = Guid.Parse(token.Issuer);
+            var user = await _userService.GetById(userId);
+
+            return user ?? throw new Exception();
         }
     }
 }

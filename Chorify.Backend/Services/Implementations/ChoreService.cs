@@ -10,18 +10,18 @@ namespace Chorify.Backend.Services.Implementations
         private readonly ICreateChoreCommand _createChoreCommand;
         private readonly IUpdateChoreCommand _updateChoreCommand;
         private readonly IDeleteChoreCommand _deleteChoreCommand;
-        private readonly IGetAllChoresQuery _getAllChoresQuery;
+        private readonly IGetChoreQuery _getChoreQuery;
 
         public ChoreService(
             ICreateChoreCommand createChoreCommand, 
             IUpdateChoreCommand updateChoreCommand, 
-            IDeleteChoreCommand deleteChoreCommand, 
-            IGetAllChoresQuery getAllChoresQuery)
+            IDeleteChoreCommand deleteChoreCommand,
+            IGetChoreQuery getChoreQuery)
         {
             _createChoreCommand = createChoreCommand;
             _updateChoreCommand = updateChoreCommand;
             _deleteChoreCommand = deleteChoreCommand;
-            _getAllChoresQuery = getAllChoresQuery;
+            _getChoreQuery = getChoreQuery;
         }
 
         public async Task Create(Chore chore)
@@ -41,7 +41,12 @@ namespace Chorify.Backend.Services.Implementations
 
         public async Task<IEnumerable<Chore>> GetAll(Guid userId)
         {
-            return await _getAllChoresQuery.Execute(userId);
+            return await _getChoreQuery.All(userId);
+        }
+
+        public async Task<Chore?> GetById(Guid id)
+        {
+            return await _getChoreQuery.ById(id);
         }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chorify.EntityFramework.Migrations
 {
     [DbContext(typeof(ChorifyDbContext))]
-    [Migration("20230305212043_Initial")]
+    [Migration("20230306171258_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -23,7 +23,6 @@ namespace Chorify.EntityFramework.Migrations
             modelBuilder.Entity("Chorify.EntityFramework.Dtos.ChoreDto", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Color")
@@ -57,7 +56,6 @@ namespace Chorify.EntityFramework.Migrations
             modelBuilder.Entity("Chorify.EntityFramework.Dtos.UserDto", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")

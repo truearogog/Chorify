@@ -35,12 +35,6 @@ namespace Chorify.Backend
 
             app.MapControllers();
 
-            var chorifyDbContextFactory = app.Services.GetRequiredService<ChorifyDbContextFactory>();
-            using (var context = chorifyDbContextFactory.Create())
-            {
-                context.Database.Migrate();
-            }
-
             app.Run();
         }
     }

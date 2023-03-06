@@ -23,6 +23,7 @@ namespace Chorify.EntityFramework.Commands
                     Name = chore.Name,
                     Description = chore.Description,
                     Color = chore.Color,
+                    UserId = chore.UserId,
                     Created = DateTime.Now,
                     Updated = DateTime.Now,
                 };

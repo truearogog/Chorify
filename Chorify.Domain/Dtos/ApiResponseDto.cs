@@ -9,25 +9,7 @@ namespace Chorify.Domain.Dtos
         [JsonIgnore] public string StackTrace { get; set; } = string.Empty;
         public object? Data { get; set; } = null;
 
-        public ApiResponseDto() { }
-
-        public ApiResponseDto(Action func, string? error = null)
-        {
-            try
-            {
-                func = func ?? throw new ArgumentNullException(nameof(func));
-                func();
-                Success = true;
-            }
-            catch (Exception ex)
-            {
-                Error = error ?? ex.InnerException?.Message ?? ex.Message;
-                StackTrace = ex.InnerException?.StackTrace ?? ex.StackTrace;
-                Success = false;
-            }
-        }
-
-        public ApiResponseDto(Func<object?> func, string? error = null)
+        private ApiResponseDto(Func<object?> func, string? error = null)
         {
             try
             {
@@ -41,6 +23,33 @@ namespace Chorify.Domain.Dtos
                 StackTrace = ex.InnerException?.StackTrace ?? ex.StackTrace;
                 Success = false;
             }
+        }
+
+        private ApiResponseDto(Func<Task<object?>> func, CancellationToken cancellationToken, string? error = null)
+        {
+            try
+            {
+                func = func ?? throw new ArgumentNullException(nameof(func));
+                var t = Task.Run(func, cancellationToken);
+                Data = t.Result;
+                Success = true;
+            }
+            catch (Exception ex)
+            {
+                Error = error ?? ex.InnerException?.Message ?? ex.Message;
+                StackTrace = ex.InnerException?.StackTrace ?? ex.StackTrace;
+                Success = false;
+            }
+        }
+
+        public static ApiResponseDto Build(Func<object?> func, string? error = null)
+        {
+            return new ApiResponseDto(func, error);
+        }
+
+        public static async Task<ApiResponseDto> BuildAsync(Func<Task<object?>> func, CancellationToken cancellationToken, string? error = null)
+        {
+            return await Task.Run(() => new ApiResponseDto(func, cancellationToken, error));
         }
     }
 }

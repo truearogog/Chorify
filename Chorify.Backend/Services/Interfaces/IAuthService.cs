@@ -5,9 +5,9 @@ namespace Chorify.Backend.Services.Interfaces
 {
     public interface IAuthService
     {
-        void Register(HttpRequest request, RegisterDto dto);
-        void Login(HttpRequest request, HttpResponse response, LoginDto dto);
-        void Logout(HttpRequest request, HttpResponse response);
-        User? GetUser(HttpRequest request);
+        Task Register(HttpRequest request, UserRegisterDto dto);
+        Task Login(HttpRequest request, HttpResponse response, UserLoginDto dto);
+        Task Logout(HttpRequest request, HttpResponse response);
+        Task<User?> GetUser(HttpRequest request);
     }
 }

@@ -13,7 +13,7 @@ namespace Chorify.EntityFramework.Queries
             _contextFactory = contextFactory;
         }
 
-        public async Task<User?> Execute(Guid id)
+        public async Task<User?> ById(Guid id)
         {
             using (var context = _contextFactory.Create())
             {
@@ -25,7 +25,7 @@ namespace Chorify.EntityFramework.Queries
             }
         }
 
-        public async Task<User?> Execute(string email)
+        public async Task<User?> ByEmail(string email)
         {
             using (var context = _contextFactory.Create())
             {

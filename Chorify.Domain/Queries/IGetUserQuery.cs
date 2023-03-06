@@ -4,7 +4,7 @@ namespace Chorify.Domain.Queries
 {
     public interface IGetUserQuery
     {
-        Task<User?> Execute(Guid id);
-        Task<User?> Execute(string email);
+        Task<User?> ById(Guid id);
+        Task<User?> ByEmail(string email);
     }
 }

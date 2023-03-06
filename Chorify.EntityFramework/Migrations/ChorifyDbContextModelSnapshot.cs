@@ -20,7 +20,6 @@ namespace Chorify.EntityFramework.Migrations
             modelBuilder.Entity("Chorify.EntityFramework.Dtos.ChoreDto", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Color")
@@ -54,7 +53,6 @@ namespace Chorify.EntityFramework.Migrations
             modelBuilder.Entity("Chorify.EntityFramework.Dtos.UserDto", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")

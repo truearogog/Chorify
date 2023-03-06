@@ -35,8 +35,8 @@ namespace Chorify.Backend.DI
 
         public static IServiceCollection AddQueryGroup(this IServiceCollection services)
         {
-            services.AddScoped<IGetAllChoresQuery, GetAllChoresQuery>();
             services.AddScoped<IGetUserQuery, GetUserQuery>();
+            services.AddScoped<IGetChoreQuery, GetChoreQuery>();
 
             return services;
         }

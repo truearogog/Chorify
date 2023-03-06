@@ -1,6 +1,7 @@
 ﻿using Chorify.Domain.Commands;
 using Chorify.Domain.Models;
 using Chorify.EntityFramework.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chorify.EntityFramework.Commands
 {
@@ -17,17 +18,16 @@ namespace Chorify.EntityFramework.Commands
         {
             using (var context = _contextFactory.Create())
             {
-                var userDto = new UserDto
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    PasswordHash = user.PasswordHash,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now,
-                };
+                var userDto = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(user.Id));
 
-                context.Users.Update(userDto);
-                await context.SaveChangesAsync();
+                if (userDto != null)
+                {
+                    userDto.Email = userDto.Email;
+                    userDto.PasswordHash = userDto.PasswordHash;
+                    userDto.Updated = DateTime.Now;
+
+                    await context.SaveChangesAsync();
+                };
             }
         }
     }

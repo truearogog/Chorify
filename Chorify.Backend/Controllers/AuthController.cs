@@ -20,42 +20,58 @@ namespace Chorify.Backend.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto dto)
         {
-            var response = new ApiResponseDto(() =>
+            var cts = new CancellationTokenSource();
+
+            var response = await ApiResponseDto.BuildAsync(async () =>
             {
-                _authService.Register(Request, dto);
-            });
+                await _authService.Register(Request, dto);
+                return null;
+            }, cts.Token);
+
             return Ok(response);
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto dto)
         {
-            var response = new ApiResponseDto(() =>
+            var cts = new CancellationTokenSource();
+
+            var response = await ApiResponseDto.BuildAsync(async () =>
             {
-                _authService.Login(Request, Response, dto);
-            });
+                await _authService.Login(Request, Response, dto);
+                return null;
+            }, cts.Token);
+
             return Ok(response);
         }
 
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            var response = new ApiResponseDto(() =>
+            var cts = new CancellationTokenSource();
+
+            var response = await ApiResponseDto.BuildAsync(async () =>
             {
-                _authService.Logout(Request, Response);
-            });
+                await _authService.Logout(Request, Response);
+                return null;
+            }, cts.Token);
+
             return Ok(response);
         }
 
         [HttpGet("user")]
-        public IActionResult GetUser()
+        public async Task<IActionResult> GetUser()
         {
-            var response = new ApiResponseDto(() =>
+            var cts = new CancellationTokenSource();
+
+            var response = await ApiResponseDto.BuildAsync(async () =>
             {
-                return _authService.GetUser(Request);
-            });
+                var user = await _authService.GetUser(Request);
+                return user;
+            }, cts.Token);
+
             return Ok(response);
         }
     }

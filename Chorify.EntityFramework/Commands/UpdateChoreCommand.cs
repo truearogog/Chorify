@@ -1,6 +1,7 @@
 ﻿using Chorify.Domain.Commands;
 using Chorify.Domain.Models;
 using Chorify.EntityFramework.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chorify.EntityFramework.Commands
 {
@@ -17,18 +18,17 @@ namespace Chorify.EntityFramework.Commands
         {
             using (var context = _contextFactory.Create())
             {
-                var choreDto = new ChoreDto
-                {
-                    Id = chore.Id,
-                    Name = chore.Name,
-                    Description = chore.Description,
-                    Color = chore.Color,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now,
-                };
+                var choreDto = await context.Chores.FirstOrDefaultAsync(x => x.Id.Equals(chore.Id));
 
-                context.Chores.Update(choreDto);
-                await context.SaveChangesAsync();
+                if (choreDto != null)
+                {
+                    choreDto.Name = chore.Name;
+                    choreDto.Description = chore.Description;
+                    choreDto.Color = chore.Color;
+                    choreDto.Updated = DateTime.Now;
+
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }

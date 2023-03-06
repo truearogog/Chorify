@@ -33,12 +33,12 @@ namespace Chorify.Backend.Services.Implementations
 
         public async Task<User?> GetByEmail(string email)
         {
-            return await _getUserQuery.Execute(email);
+            return await _getUserQuery.ByEmail(email);
         }
 
         public async Task<User?> GetById(Guid id)
         {
-            return await _getUserQuery.Execute(id);
+            return await _getUserQuery.ById(id);
         }
     }
 }
