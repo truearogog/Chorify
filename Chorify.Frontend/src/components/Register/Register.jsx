@@ -13,10 +13,15 @@ const Register = () => {
     console.log(registerData);
   };
 
-  const handleRegisterSubmit = async (e) => {
+  const handleRegisterSubmit = async () => {
     try {
-      e.preventDefault();
-      await axios.post("http://localhost:5160/api/Auth/register", registerData);
+      const { data } = await axios.post(
+        "http://localhost:5160/api/Auth/register",
+        registerData
+      );
+      if (data.success === true) {
+        window.location.href = "/login";
+      }
     } catch (error) {
       console.log(error);
     }
@@ -43,8 +48,7 @@ const Register = () => {
             name="password"
           />
         </div>
-        <button
-          className="btnRegister" type="submit">
+        <button className="btnRegister" type="submit">
           Register
         </button>
       </form>
