@@ -13,13 +13,15 @@ const Register = () => {
     console.log(registerData);
   };
 
-  const handleRegisterSubmit = async () => {
+  const handleRegisterSubmit = async (e) => {
     try {
+      e.preventDefault();
       const { data } = await axios.post(
         "http://localhost:5160/api/Auth/register",
         registerData
       );
-      if (data.success === true) {
+      console.log(data);
+      if (data.success == true) {
         window.location.href = "/login";
       }
     } catch (error) {

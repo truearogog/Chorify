@@ -12,20 +12,15 @@ const Login = () => {
     setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     try {
-      const { data } = await axios
-        .post("http://localhost:5160/api/Auth/login", loginData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        })
-        .then((response) => {
-        console.log(response.headers['cookie']);
+        e.preventDefault();
+      const { data } = await axios.post("http://localhost:5160/api/Auth/login", loginData, {
+          withCredentials: true
         });
-      if (data.success === true) {
-        console.log("hello epta");
+        console.log(data);
+      if (data.success == true) {
+        window.location.href = "/";
       }
     } catch (error) {
       console.error(error);
