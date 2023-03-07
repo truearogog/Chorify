@@ -7,9 +7,9 @@ const Chores = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5160/api/Chore/all");
-        setItems(data);
-        console.log(data);
+        const { data } = await axios.get("http://localhost:5160/api/Chore/all",  { withCredentials: true});
+        setItems(data.data);
+        console.log(data.data);
       } catch (error) {
         console.error(error);
       }
@@ -21,11 +21,11 @@ const Chores = () => {
   return (
     <div>
       <h1>Items</h1>
-      {/* <ul>
+      <ul>
         {items.map((item) => (
           <li key={item.id}>{item.name}</li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
