@@ -50,7 +50,7 @@ namespace Chorify.Backend.Services.Implementations
 
             var jwt = _jwtService.Generate(user.Id);
 
-            response.Cookies.Append("jwt", jwt, new CookieOptions { HttpOnly = true });
+            response.Cookies.Append("jwt", jwt, new CookieOptions { });
 
             _logger.LogInformation($"User '{user.Id}' '{user.Email}' logged in");
         }

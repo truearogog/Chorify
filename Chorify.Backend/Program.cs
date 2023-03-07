@@ -1,6 +1,5 @@
 using Chorify.Backend.DI;
 using Chorify.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 
 namespace Chorify.Backend
 {
@@ -9,6 +8,8 @@ namespace Chorify.Backend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors();
 
             // Add services to the container.
             builder.Services.AddControllers();
