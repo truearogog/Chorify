@@ -8,12 +8,6 @@ const Login = () => {
     password: "",
   });
 
-  const setCookie = (name, value, days) => {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = "; expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + expires + "; path=/";
-  };
 
   const handleLoginInput = (e) => {
     setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,7 +23,6 @@ const Login = () => {
       );
       if (data.success === true) {
         console.log("hello epta");
-        setCookie("jwt", data.token, 7);
       }
     } catch (error) {
       console.error(error);
