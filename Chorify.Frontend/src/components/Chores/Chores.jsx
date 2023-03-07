@@ -65,6 +65,10 @@ const Chores = () => {
     console.log(choreData);
   };
 
+  const handleEditColorChange = (e) => {
+    setEditChoreData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const handleExpandClick = (itemId) => {
     setExpandedItems((prevExpandedItems) => ({
       ...prevExpandedItems,
@@ -262,7 +266,7 @@ const Chores = () => {
                                 type="color"
                                 id="color"
                                 name="color"
-                                onChange={handleColorChange}
+                                onChange={handleEditColorChange}
                               />
                               <button
                                 className="submitChoreButton"
