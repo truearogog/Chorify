@@ -12,9 +12,8 @@ const Login = () => {
     setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     try {
-      e.preventDefault();
       const { data } = await axios
         .post("http://localhost:5160/api/Auth/login", loginData, {
           headers: {

@@ -1,0 +1,80 @@
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modalContainer {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 500px;
+    height: 50%;
+    border-radius: 25px;
+  }
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .closeModalButton {
+    background-color: #e74c3c;
+    color: #fff;
+    border: 1px solid black;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .modalForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+  }
+  
+  label {
+    font-weight: bold;
+    font-size: 32px;
+  }
+  
+  input[type="text"],
+  textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
+  }
+
+  .submitChoreButton {
+    margin-top:20px;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submitChoreButton:hover {
+    background-color: #006666;
+  }
