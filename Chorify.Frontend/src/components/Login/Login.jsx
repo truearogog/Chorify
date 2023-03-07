@@ -8,7 +8,6 @@ const Login = () => {
     password: "",
   });
 
-
   const handleLoginInput = (e) => {
     setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -16,11 +15,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await axios.post(
-        "http://localhost:5160/api/Auth/login",
-        loginData,
-        { withCredentials: true }
-      );
+      const { data } = await axios
+        .post("http://localhost:5160/api/Auth/login", loginData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((response) => {
+        console.log(response.headers['cookie']);
+        });
       if (data.success === true) {
         console.log("hello epta");
       }
