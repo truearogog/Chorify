@@ -13,7 +13,6 @@ const TopBar = () => {
           { withCredentials: true }
         );
         setCredentials(data);
-        console.log(credentials);
       } catch (error) {
         console.error(error);
       }
@@ -24,7 +23,7 @@ const TopBar = () => {
 
   const handleLogOut = async () => {
     try {
-      await axios.post("http://localhost:5160/api/Auth/logout", {
+      await axios.post('http://localhost:5160/api/Auth/logout', null, {
         withCredentials: true,
       });
       window.location.href = '/login';
