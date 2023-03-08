@@ -38,6 +38,10 @@ const Register = () => {
     }
   };
 
+  const handleLoginClick = (e) => {
+    window.location.href = "/login";
+  };
+
   return (
     <div>
       <form onSubmit={handleRegisterSubmit}>
@@ -63,6 +67,15 @@ const Register = () => {
         {error && <div className="errorMessage">{error}</div>}
         <button className="btnRegister" type="submit">
           Register
+        </button>
+        <br />
+        <p>Already have an account?</p>
+        <button
+          className="btnRegisterNav"
+          type="button"
+          onClick={handleLoginClick}
+        >
+          Login
         </button>
       </form>
     </div>

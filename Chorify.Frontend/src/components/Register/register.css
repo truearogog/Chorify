@@ -44,6 +44,20 @@ form {
   background-color: #3e8e41;
 }
 
+.btnRegisterNav {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btnRegister:hover {
+  background-color: #3e8e41;
+}
+
 .errorMessage {
   color:red;
   margin-bottom: 10px;
