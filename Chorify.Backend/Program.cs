@@ -39,14 +39,15 @@ namespace Chorify.Backend
 
             app.UseAuthorization();
 
-            app.MapControllers();
-
             app.UseCors(options => options
                 .WithOrigins(new[] { "http://localhost:3000" })
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
             );
+
+            app.MapControllers();
+            app.MapFallbackToController("Index", "Fallback");
 
             app.Run();
         }
