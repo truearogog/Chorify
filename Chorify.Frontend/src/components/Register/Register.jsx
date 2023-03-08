@@ -8,6 +8,8 @@ const Register = () => {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleRegisterInput = (e) => {
     setRegisterData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     console.log(registerData);
@@ -16,13 +18,20 @@ const Register = () => {
   const handleRegisterSubmit = async (e) => {
     try {
       e.preventDefault();
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      if (!emailRegex.test(registerData.email)) {
+        setError("Please enter a valid email address");
+        return;
+      }
       const { data } = await axios.post(
         "http://localhost:5160/api/Auth/register",
         registerData
       );
       console.log(data);
-      if (data.success == true) {
+      if (data.success === true) {
         window.location.href = "/login";
+      } else {
+        setError("Invalid email or password");
       }
     } catch (error) {
       console.log(error);
@@ -48,8 +57,10 @@ const Register = () => {
             onChange={handleRegisterInput}
             type="password"
             name="password"
+            minlength="6"
           />
         </div>
+        {error && <div className="errorMessage">{error}</div>}
         <button className="btnRegister" type="submit">
           Register
         </button>

@@ -43,3 +43,8 @@ form {
 .btnRegister:hover {
   background-color: #3e8e41;
 }
+
+.errorMessage {
+  color:red;
+  margin-bottom: 10px;
+}
